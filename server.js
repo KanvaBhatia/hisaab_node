@@ -1,5 +1,5 @@
 // import fetch from "node-fetch";
-const fetch = require('node-fetch');
+const axios = require('axios');
 const express = require('express')
 const app = express()
 const cors = require('cors')
@@ -18,31 +18,33 @@ app.use(express.static(__dirname));
 
 
 app.post('/api', async (req, res) => {
-    console.log("fsdsads")
-    console.log(req.body)
-    console.log(JSON.stringify(req.body));
-    // var result = {}
-    const url = 'https://expensedaily.azurewebsites.net/api/post/' + req.body.url
-    console.log(url);
-    let result = await fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(req.body),
-        headers: {
-        'Content-Type': 'application/json',
-        }
-    })
-    console.log(result)
-    let data = await result.json()
-    console.log(data)
+  console.log("fsdsads")
+  console.log(req.body)
+  console.log(JSON.stringify(req.body));
 
-    // .then(response => response.json())
-    // .then(data => {
-    //     console.log(data);
-    //     // return res.json(data);
-    // })
-    // .catch(error => console.error(error));
-    return res.json({status: data});
-})
+  const url = 'https://expensedaily.azurewebsites.net/api/post/' + req.body.url
+  console.log(url);
+
+  try {
+      let result = await axios({
+          method: 'POST',
+          url: url,
+          data: req.body,
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      });
+      console.log(result);
+      let data = result.data;
+      console.log(data);
+
+      return res.json({status: data});
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({error: 'Something went wrong'});
+  }
+});
+
 
 
 app.get("/", (req, res) => {
