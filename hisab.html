@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="hisabb.css">
-    
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
 </head>
 <style>
     svg{
@@ -24,8 +25,12 @@
     <script type="text/javascript" src="/particles.min.js"></script>
     
     <script type="text/javascript" src="/custom.js"></script>
-   
-    <div class="nav">
+
+    <div id="nav">
+
+    </div>
+
+    <!-- <div class="nav">
         <a class="animate" href="/">Home</a>
         <a id="signin" class="animate" href="Login">Sign in</a>
         <a id="signup" class="animate" href="signup">Sign up</a>
@@ -35,7 +40,7 @@
         <div id="signout" onclick="signout()" class="animate">Sign Out</div>
         <a href="about" id="about_us" class="animate">About Us</a>
 
-     </div>
+     </div> -->
 
 
      <svg version="1.1" id="L6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -65,7 +70,7 @@
    </svg>
     <form id="cont" data-multi-step class="multi-step-form">
        
-        <h1 class="expp">Add Expense</h1>
+        <h1 class="expp"><pre> </pre> </h1>
         <div class="card active" data-step>
             
             <h1><b>Step 1</b></h1>
@@ -122,6 +127,10 @@
         </div>
     </form>
     <script src="hisab.js"></script>
-    <script src="nav.js"></script>
+    <script>
+        $(function(){
+            $("#nav").load("nav.html");
+        });
+    </script>
 </body>
 </html>

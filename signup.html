@@ -12,17 +12,18 @@
             $('.nav').fadeToggle ();
         },3500);
      </script>
+     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <style>
   svg{
-  width: 100px;
-  height: 100px;
-  margin: auto;
-  margin-top: 35%;
-  display:inline-block;
-}
-   
-</style>
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-top: 35%;
+    display:inline-block;
+  }
+  
+  </style>
 <body>
 
     <div id="bg" ></div>
@@ -32,17 +33,12 @@
     <script type="text/javascript" src="/custom.js"></script>
    
    <div class="nav">
-      <a class="animate" href="/">Home</a>
-        <a id="signin" class="animate" href="Login">Sign in</a>
-        <a id="signup" class="animate" href="signup">Sign up</a>
-  
-        <a id='profile' class="animate" href="profile">Profile</a>
-        <a id="hisaab" class="animate" href="hisaab">Hisaab</a>
-        <div id="signout" onclick="signout()" class="animate">Sign Out</div>
-        <a href="about" id="about_us" class="animate">About Us</a>
-
-
    </div>
+  <script>
+      $(function(){
+          $(".nav").load("nav.html");
+      });
+  </script>
    
    <svg version="1.1" id="L6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">

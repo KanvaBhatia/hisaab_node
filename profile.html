@@ -127,6 +127,7 @@ img {
   }
 }
  </style>
+ <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
     <div id="bg" ></div>
@@ -136,17 +137,13 @@ img {
         
         <script type="text/javascript" src="/custom.js"></script>
     <div class="nav">
-        <a class="animate" href="/">Home</a>
-        <a id="signin" class="animate" href="Login">Sign in</a>
-        <a id="signup" class="animate" href="signup">Sign up</a>
-  
-        <a id='profile' class="animate" href="profile">Profile</a>
-        <a id="hisaab" class="animate" href="hisaab">Hisaab</a>
-        <div id="signout" onclick="signout()" class="animate">Sign Out</div>
-        <a href="about" id="about_us" class="animate">About Us</a>
-
 
      </div>
+ <script>
+     $(function(){
+         $(".nav").load("nav.html");
+     });
+ </script>
     
      <div class="card-container">
        

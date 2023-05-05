@@ -62,11 +62,14 @@ app.get("/profile", (req, res) => {
 app.get("/hisaab", (req, res) => {
     res.sendFile(__dirname + "/hisab.html");
   });
+app.get("/summary", (req, res) => {
+    res.sendFile(__dirname + "/summary.html");
+  });
 app.get("/about", (req, res) => {
     res.sendFile(__dirname + "/about_us.html");
   });
 
 
 app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+    console.log(`Server started on port http://localhost:${PORT}`);
 })

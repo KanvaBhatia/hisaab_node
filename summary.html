@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="hisabb.css">
+    <style>
+        svg{
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            margin-top: 10%;
+            /* z-index: 1; */
+            display:inline-block;
+        }
+        #myChart{
+            background-color: white;
+            margin-top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div id="bg" ></div>
+    <script type="text/javascript" src="/particles.min.js"></script>
+    <script type="text/javascript" src="/custom.js"></script>
+    <div class="nav"></div>
+    <script>
+        $(function(){
+            $(".nav").load("nav.html");
+        });
+    </script>
+
+<form id="cont" data-multi-step class="multi-step-form">
+       
+    <h1 class="expp"> </h1>
+    <div class="card active" data-step>
+        <pre>  </pre>
+        <h2><b>Choose Month:</b></h2>
+        <!-- <div class="form-group">
+            <label for="date">Date of Expense:</label><br>
+            <input type="date" name="date" id="date">
+            
+        </div> -->
+        <div class="form-group">
+            <label for="month"></label>
+        <select id="month" name="month">
+        <option value="Jan">January</option>
+        <option value="Feb">February</option>
+        <option value="Mar">March</option>
+        <option value="Apr">April</option>
+        <option value="May">May</option>
+        <option value="Jun">June</option>
+        <option value="Jul">July</option>
+        <option value="Aug">August</option>
+        <option value="Sep">September</option>
+        <option value="Oct">October</option>
+        <option value="Nov">November</option>
+        <option value="Dec">December</option>
+        </select><br>
+            
+        </div>
+        
+        <button onclick="summary()" id="next1" type="button" >Submit</button>
+        <!-- <button type="button" id="next1" data-next>Next</button> -->
+    </div>
+    </div>
+    </div>
+</form>
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+<svg version="1.1" id="L6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+ <rect fill="none" stroke="#fff" stroke-width="4" x="25" y="25" width="50" height="50">
+<animateTransform
+   attributeName="transform"
+   dur="0.5s"
+   from="0 50 50"
+   to="180 50 50"
+   type="rotate"
+   id="strokeBox"
+   attributeType="XML"
+   begin="rectBox.end"/>
+</rect>
+ <rect x="27" y="27" fill="#fff" width="46" height="50">
+<animate
+   attributeName="height"
+   dur="1.3s"
+   attributeType="XML"
+   from="50" 
+   to="0"
+   id="rectBox" 
+   fill="freeze"
+   begin="0s;strokeBox.end"/>
+</rect>
+</svg>
+<script>
+    document.getElementById('L6').style.display = 'none';
+    document.getElementById('myChart').style.display = 'none';
+    async function summary() {
+        document.getElementById('cont').style.display = 'none';
+        document.getElementById('L6').style.display = 'block';
+        
+        const mon = document.getElementById("month").value;
+        const email = localStorage.getItem('email');
+        console.log(mon);
+        let result = await fetch('/api', {
+            method: 'POST',         
+            body: JSON.stringify({email: email, month: mon, url: 'summary'}),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        let data = await result.json();
+        // console.log(data.status['result'])
+        // console.log(data)
+        const food = data.status['result']['Food'];
+        const others = data.status['result']['Others'];
+        const padhai = data.status['result']['Padhai'];
+        const travel = data.status['result']['Travel'];
+        const total = data.status['result']['Total'];
+        // console.log(data);
+        document.getElementById('L6').style.display = 'none';
+        var xValues = ["Food : " + food, "Padhai : " + padhai, "Travel : " + travel, "Others : " + others];
+        var yValues = [food, padhai, travel, others];
+        var barColors = [
+        "#b91d47",
+        "#00aba9",
+        "#2b5797",
+        "#e8c3b9",
+        "#1e7145"
+        ];
+
+        new Chart("myChart", {
+            type: "pie",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    color: '#fff',
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Expenditure Summary"
+                }
+            }
+        });
+
+        document.getElementById('myChart').style.display = 'inline-block';
+    }
+</script>
+</body>
+</html>
